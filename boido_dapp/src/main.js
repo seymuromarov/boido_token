@@ -32,8 +32,8 @@ import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 let axiosDefaults = require("axios/lib/defaults");
 
 library.add(faUsers, faCubes, faTable, faWallet, faExchangeAlt, faDiceD20, faExpandArrowsAlt, faEye, faTags)
-// axiosDefaults.baseURL = "https://api.boido.org";
-axiosDefaults.baseURL = "http://127.0.0.1:8000";
+axiosDefaults.baseURL = "https://api.boido.org";
+// axiosDefaults.baseURL = "http://127.0.0.1:8000";
 
 
 Cryptoicon.add(icon);

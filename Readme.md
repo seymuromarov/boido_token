@@ -1,5 +1,5 @@
 # Source code of boido token
-##Boido contract uses openzeppelin ERC1155 contract as its base and also includes presale feature.
+### Boido contract uses openzeppelin ERC1155 contract as its base and also includes extra features like presale.
 
 
 Remember to fork this repository<br>

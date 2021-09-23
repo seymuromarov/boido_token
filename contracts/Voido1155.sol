@@ -36,18 +36,12 @@ contract Voido is Context, Ownable, ERC1155Burnable {
         uint256 def;
     }
 
-    event LogDeposit(address sender, uint256 amount);
-    event LogTransfer(address sender, address to, uint256 amount);
-
     mapping(uint256 => RankProperty) private RankProperties;
     mapping(uint256 => ItemProperty) private ItemProperties;
     struct Order {
         uint256 price;
         uint256 amount;
     }
-
-    // From ERC721 registry assetId to Order (to avoid asset collision)
-    // mapping(address => mapping(uint256 => Order)) public userOrders;
 
     bool private presale = true;
 
@@ -64,8 +58,6 @@ contract Voido is Context, Ownable, ERC1155Burnable {
     }
 
     /**
-     * @dev Grants `DEFAULT_ADMIN_ROLE`, `MINTER_ROLE`, and `PAUSER_ROLE` to the account that
-     * deploys the contract.
      *
      * Ranks
      *   1-> Common
@@ -96,7 +88,7 @@ contract Voido is Context, Ownable, ERC1155Burnable {
         override(ERC1155)
         returns (bool isOperator)
     {
-        // Whitelist OpenSea proxy contract for easy trading.
+        // Whitelist proxy contract for easy trading.
 
         if (isProxyEnabled) {
             ProxyRegistry proxyRegistry = ProxyRegistry(proxyRegistryAddress);
@@ -113,9 +105,6 @@ contract Voido is Context, Ownable, ERC1155Burnable {
      *
      * See {ERC1155-_mint}.
      *
-     * Requirements:
-     *
-     * - the caller must have the `MINTER_ROLE`.
      */
 
     function mint(
@@ -130,6 +119,10 @@ contract Voido is Context, Ownable, ERC1155Burnable {
         _mint(to, id, amount, data);
         changeIdData(id, amount, rank, atk, def);
     }
+
+    /**
+     * @dev Internal function which allows to change data of token
+     */
 
     function changeIdData(
         uint256 id,
@@ -202,6 +195,10 @@ contract Voido is Context, Ownable, ERC1155Burnable {
     ) internal virtual override(ERC1155) {
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
     }
+
+    /**
+     * @dev Allows users for buying tokens from presale , From must be owner
+     */
 
     function buyItemFromPreSale(
         uint256 id,
